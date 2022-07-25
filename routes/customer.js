@@ -4,10 +4,10 @@ const {
     isCustomerLoggedIn,
     addCustomer,
     removeCustomer,
-    updateCustomer
+    updateCustomerCredentials
 } = require ('../controllers/customerController')
 customerRouter
-    .route('/:')
+    .route('/')
     .get(isCustomerLoggedIn)
     .patch(updateCustomerCredentials)
     .delete(removeCustomer)

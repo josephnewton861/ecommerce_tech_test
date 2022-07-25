@@ -10,4 +10,8 @@ const con = mysql.createConnection({
     multipleStatements: true
 });
 
-module.exports = con;
+const host = process.env.DB_HOST
+
+console.log('in connection host', host)
+
+module.exports = {con, host};

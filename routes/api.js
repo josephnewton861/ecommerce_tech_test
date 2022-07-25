@@ -5,10 +5,10 @@ apiRouter.get("/", (req, res, next) => res.send({ msg: 'here in get route' }));
 
 
 // CUSTOMER
-apiRouter.post('/customer', customerRouter);
-apiRouter.patch('/customer', customerRouter);
-apiRouter.delete('/customer', customerRouter)
-apiRouter.get('/customer', customerRouter);
+apiRouter.use('/customer', customerRouter);
+// apiRouter.patch('/customer', customerRouter);
+// apiRouter.delete('/customer', customerRouter)
+// apiRouter.get('/customer', customerRouter);
 
 // Routes 
 //USERS
