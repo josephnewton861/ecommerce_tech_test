@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "jest",
     "start": "node listen.js"
   },
   "repository": {
@@ -17,8 +17,12 @@
   },
   "homepage": "https://github.com/josephnewton861/ecommerce_tech_test#readme",
   "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "jest": "^28.1.3",
     "mocha": "^10.0.0",
+    "mysql": "^2.18.1",
     "nodemon": "^2.0.19"
   },
   "devDependencies": {
