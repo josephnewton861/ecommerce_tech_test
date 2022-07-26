@@ -1,8 +1,13 @@
 const express = require("express");
 const app = express();
 const apiRouter = require("./routes/api");
+const sqlInjection = require('sql-injection')
 
 app.use(express.json());
+
+// app.configure(function() {
+//     app.use(sqlInjection)
+// });
 
 app.use("/api", apiRouter);
 

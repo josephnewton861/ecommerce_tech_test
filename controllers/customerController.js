@@ -35,7 +35,7 @@ exports.isCustomerLoggedIn = (req, res, next) => {
     } else {
         return res.status(400).send({email: email, passwordCheck: passwordCheck, msg: 'bad request'})
     }
-}
+},
 
 exports.addCustomer = (req, res, next) => {
     const {username, password, address, email, postcode} = req.body;
@@ -53,20 +53,34 @@ exports.addCustomer = (req, res, next) => {
     } else {
         return res.status(400).send({email: email, passwordCheck: passwordCheck})
     }
-}
+},
 
 exports.removeCustomer = (req, res, next) => {
-    const {username} = req.params;
+    const {username} = req.body;
     deleteCustomer(username)
-    .then((res) => {
-        res.status(200).send({customer})
-    }).catch(next)
-}
+    .then((customer) => {
+        res.status(200).send({msg})
+    }).catch((err) => {
+        return res.status(400).send({msg: 'Unable to delete user'})
+    })
+},
 
 exports.updateCustomerCredentials = (req, res, next) => {
-    const {address, postcode} = req.params;
-    updateCustomer(address, postcode)
-    .then((res) => {
-        res.status(200).send({customer})
-    }).catch(next)
+    const {address, postcode, username} = req.body;
+    updateCustomer(address, postcode, username)
+    .then((customer) => {
+        res.status(200).send(customer.msg)
+    }).catch((err) => {
+        return res.status(400).send({msg: 'Unable to update users details'})
+    })
 }
+
+// exports.signOut = (req, res, next) => {
+//     const {username} = req.body;
+//     updateCustomerSignOut(address, postcode, username)
+//     .then((customer) => {
+//         res.status(200).send(customer.msg)
+//     }).catch((err) => {
+//         return res.status(400).send({msg: 'Unable to update users details'})
+//     })
+// }

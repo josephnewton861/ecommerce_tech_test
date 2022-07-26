@@ -47,13 +47,39 @@ exports.insertCustomer = (username, password, address, email, postcode) => {
 }
 
 exports.deleteCustomer = (username) => {
-    // 
-
+    let query = `DELETE from ${host}.customers WHERE username = '${username}'`
+    return new Promise((resolve, reject) => {
+        con.query(
+            query, (err, result)  => {
+                if (err) {
+                    return reject({
+                        status: 400,
+                        msg: `Unable to delete user ${username}`
+                    })
+                }
+                return resolve({msg: 'Successful deletion'});
+            }
+        )
+    })
 }
 
-exports.updateCustomer = (address, postcode) => {
+exports.updateCustomer = (address, postcode, username) => {
     //updateCustomer(address, postcode)
-
+    console.log(address, postcode, username);
+    let query = `UPDATE ${host}.customers SET address = '${address}', postcode = '${postcode}' WHERE username = '${username}'`
+    return new Promise((resolve, reject) => {
+        con.query(
+            query, (err, result)  => {
+                if (err) {
+                    return reject({
+                        status: 400,
+                        msg: `Unable to update ${username} delivery details`
+                    })
+                }
+                return resolve({msg: 'Successful update'});
+            }
+        )
+    })
 }
 
 // const query = "INSERT INTO test.products (name, style, price, sizes, discount, img, gender, category, colour, stock_left, designer, slug, release_date) VALUES ?";
