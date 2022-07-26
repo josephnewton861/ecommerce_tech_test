@@ -9,7 +9,7 @@ exports.fetchAllProducts = () => {
                 if (err) {
                     return reject({
                         status: 500,
-                        msg: `Unable to get products`
+                        msg: `Unable to get products ${host}`
                     })
                 }
                 return resolve({products: result});
