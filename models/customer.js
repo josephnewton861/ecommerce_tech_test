@@ -1,30 +1,22 @@
 const {con, host} = require('../db/connection');
 
 exports.fetchCustomerIfLoggedIn = (username, password, email) => {
-    //return [{customer: 'success'}]
-    // console.log(host, con, 'host');
-
-    let query = `select from ${host}.customers where username = 'test' or email = 'joe@test' and password = 123`
-
-    con.query(
-        query, (err, result, fields) => {
-       if (err || !result.length) {
-           console.log('here in model');
-           return {
-               status: 404,
-               msg: `Username: ${username} / email: ${email} and or password: ${password} not found`
-           }
-       } 
-       console.log(result, 'resultttttt')
-        return result;
-        }
-    )
-       //return propromis 
-    //}
-    //     (error, results) {
-    //     console.log(error);
-    //     }
-    // );
+    let query = `SELECT username, email, address, active, postcode FROM ${host}.customers 
+    WHERE username = '${con.escape(username)}' or email = '${con.escape(email)}' and password = ${con.escape(password)};`
+    return new Promise((resolve, reject) => {
+        con.query(
+            query, (err, result)  => {
+                console.log(result, 'here in model')
+                if (err || !result.length) {
+                    return reject({
+                        status: 404,
+                        msg: `Username: ${username} / email: ${email} and or password: ${password} not found`
+                    })
+                }
+                return resolve(result);
+            }
+        )
+    })
 }
 
 exports.insertCustomer = (username, password, address, email, postcode) => {
