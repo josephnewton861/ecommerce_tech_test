@@ -9,7 +9,8 @@ const con = mysql.createConnection({
     port: process.env.DB_PORT,
     multipleStatements: true
 });
+const testPassword = process.env.TEST_PASSWORD
 
 const host = process.env.DB_HOST
 
-module.exports = {con, host};
+module.exports = {con, host, testPassword};

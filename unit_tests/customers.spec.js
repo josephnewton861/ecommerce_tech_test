@@ -1,11 +1,12 @@
 const app = require("../app");
 const supertest = require("supertest");
 const request = supertest(app)
+const {testPassword} = require('../db/connection');
 
 describe('GET /customer', () => {
     it('GET /customers Retrieves user information if present in db', async () => {
         const res = await request.get('/api/customer').send(
-            {username: 'test123', password: 'testTest!', email: 'joe@email.com'}
+            {username: 'test123', password: testPassword, email: 'joe@email.com'}
         )
         expect(res.status).toBe(200)
         expect(res.body.customer[0].username).toBe('test123')    
@@ -13,7 +14,7 @@ describe('GET /customer', () => {
     
     it('GET /customers Returns not found if user information is not present in db', async () => {
         const res = await request.get('/api/customer').send(
-            {username: 'test1234', password: 'testTest!', email: 'joes@email.com'}
+            {username: 'test1234', password: testPassword, email: 'joes@email.com'}
         )
         expect(res.status).toBe(404)
         expect(res.body.msg).toEqual('Username: test1234 / email: joes@email.com and or password not found');
