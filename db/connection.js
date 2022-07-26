@@ -12,6 +12,4 @@ const con = mysql.createConnection({
 
 const host = process.env.DB_HOST
 
-console.log('in connection host', host)
-
 module.exports = {con, host};

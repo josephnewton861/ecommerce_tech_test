@@ -21,10 +21,13 @@ const validatePassword = (password) => {
 }
 
 exports.isCustomerLoggedIn = (req, res, next) => {
-    const {username, password, email} = req.params;
+    const {username, password, email} = req.body;
+    //console.log(username, password, email, req);
 
-    let emailCheck = emailValidator.validate(password);
-    let passwordCheck = validatePassword(username);
+    let emailCheck = emailValidator.validate(email);
+    let passwordCheck = validatePassword(password);
+
+    console.log(passwordCheck, emailCheck, 'here')
 
     if (emailCheck && !passwordCheck.length) {
         fetchCustomerIfLoggedIn(username, password, email)
@@ -34,7 +37,7 @@ exports.isCustomerLoggedIn = (req, res, next) => {
             return res.status(404).send(err);
         })
     } else {
-        return res.status(400).send({email: email, passwordCheck: passwordCheck, password: password})
+        return res.status(400).send({email: email, passwordCheck: passwordCheck, msg: 'bad request'})
     }
 }
 

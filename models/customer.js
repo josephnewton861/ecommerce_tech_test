@@ -1,16 +1,16 @@
 const {con, host} = require('../db/connection');
 
 exports.fetchCustomerIfLoggedIn = (username, password, email) => {
-    let query = `SELECT username, email, address, active, postcode FROM ${host}.customers 
-    WHERE username = '${con.escape(username)}' or email = '${con.escape(email)}' and password = ${con.escape(password)};`
+    console.log(username, password, email, 'in model params');
+    let query = `SELECT * FROM ${host}.customers 
+    WHERE username = '${username}' or email = '${email}' and password = '${password}';`
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
-                console.log(result, 'here in model')
                 if (err || !result.length) {
                     return reject({
                         status: 404,
-                        msg: `Username: ${username} / email: ${email} and or password: ${password} not found`
+                        msg: `Username: ${username} / email: ${email} and or password not found`
                     })
                 }
                 return resolve(result);
