@@ -22,12 +22,8 @@ const validatePassword = (password) => {
 
 exports.isCustomerLoggedIn = (req, res, next) => {
     const {username, password, email} = req.body;
-    //console.log(username, password, email, req);
-
     let emailCheck = emailValidator.validate(email);
     let passwordCheck = validatePassword(password);
-
-    console.log(passwordCheck, emailCheck, 'here')
 
     if (emailCheck && !passwordCheck.length) {
         fetchCustomerIfLoggedIn(username, password, email)
@@ -42,29 +38,21 @@ exports.isCustomerLoggedIn = (req, res, next) => {
 }
 
 exports.addCustomer = (req, res, next) => {
-    const {username, password, address, email, postcode, active} = req.params;
+    const {username, password, address, email, postcode} = req.body;
 
-    let emailCheck = emailValidator.validate('joe@test.com');
-    let passwordCheck = validatePassword('testt!');
+    let emailCheck = emailValidator.validate(email);
+    let passwordCheck = validatePassword(password);
 
     if (emailCheck && !passwordCheck.length) {
-        insertCustomer(username, password, address, email, address, postcode, active)
+        insertCustomer(username, password, address, email, address, postcode)
         .then((customer) => {
-            return res.status(200).send({customer})
+            return res.status(200).send(customer)
         }).catch((err) => {
             return res.status(404).send(err);
         })
     } else {
-        return res.status(400).send({email: email, passwordCheck: passwordCheck, password: password})
+        return res.status(400).send({email: email, passwordCheck: passwordCheck})
     }
-
-    insertCustomer(username, password, address, email, address, postcode, active)
-    .then((customer) => {
-        res.status(200).send({customer})
-    }).catch((err) => {
-        console.log('back in response')
-        res.status(404).send(err.msg)
-    })
 }
 
 exports.removeCustomer = (req, res, next) => {

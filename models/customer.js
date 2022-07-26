@@ -20,12 +20,34 @@ exports.fetchCustomerIfLoggedIn = (username, password, email) => {
 }
 
 exports.insertCustomer = (username, password, address, email, postcode) => {
-    //insertCustomer(username, password, address, email, address, postcode)
 
+    let query = `INSERT INTO ${host}.customers 
+    (username, password, email, address, postcode, active) 
+    VALUES ('${username}', '${password}', '${email}', '${address}', '${postcode}', ${1});`
+
+    return new Promise((resolve, reject) => {
+        con.query(
+            query, (err, result)  => {
+                if (err) {
+                    if (err.sqlMessage.includes('Duplicate entry')) {
+                        return reject({
+                            status: 400,
+                            msg: `Username needs to be unique`
+                        })
+                    }
+                    return reject({
+                        status: 400,
+                        msg: `Unable to add user ${username} please look at your inputted details`
+                    })
+                }
+                return resolve({msg: 'Successful registration'});
+            }
+        )
+    })
 }
 
 exports.deleteCustomer = (username) => {
-    //deleteCustomer(username)
+    // 
 
 }
 
