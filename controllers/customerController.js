@@ -2,7 +2,8 @@ const {
     fetchCustomerIfLoggedIn,
     updateCustomer,
     deleteCustomer,
-    insertCustomer
+    insertCustomer,
+    updateCustomersStatus
 } = require('../models/customer');
 
 let emailValidator = require('email-validator')
@@ -29,12 +30,22 @@ exports.isCustomerLoggedIn = (req, res, next) => {
         fetchCustomerIfLoggedIn(username, password, email)
         .then((customer) => {
             return res.status(200).send({customer})
-        }).catch((err) => {
-            return res.status(404).send(err);
         })
+        .catch(next)
     } else {
         return res.status(400).send({email: email, passwordCheck: passwordCheck, msg: 'bad request'})
     }
+},
+
+exports.updateUsersStatus = (req, res, next) => {
+    const {username, status} = req.body;
+
+    updateCustomersStatus(username, status)
+    .then((customer) => {
+        return res.status(200).send(customer)
+    }).catch((err) => {
+        return res.status(400).send(err.msg);
+    })
 },
 
 exports.addCustomer = (req, res, next) => {
@@ -56,22 +67,23 @@ exports.addCustomer = (req, res, next) => {
 },
 
 exports.removeCustomer = (req, res, next) => {
-    const {username} = req.body;
+    const {username} = req.params;
     deleteCustomer(username)
     .then((customer) => {
-        res.status(200).send({msg})
+        res.status(200).send(customer.msg)
     }).catch((err) => {
         return res.status(400).send({msg: 'Unable to delete user'})
     })
 },
 
 exports.updateCustomerCredentials = (req, res, next) => {
-    const {address, postcode, username} = req.body;
+    const {address, postcode} = req.body;
+    const {username} = req.params;
     updateCustomer(address, postcode, username)
     .then((customer) => {
         res.status(200).send(customer.msg)
     }).catch((err) => {
-        return res.status(400).send({msg: 'Unable to update users details'})
+        return res.status(404).send({msg: 'Unable to update users details'})
     })
 }
 

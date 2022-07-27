@@ -4,13 +4,18 @@ const {
     isCustomerLoggedIn,
     addCustomer,
     removeCustomer,
-    updateCustomerCredentials
+    updateCustomerCredentials,
+    updateUsersStatus
 } = require ('../controllers/customerController')
 customerRouter
     .route('/')
     .get(isCustomerLoggedIn)
+    .post(addCustomer)
+    .patch(updateUsersStatus)
+
+customerRouter
+    .route('/:username')
     .patch(updateCustomerCredentials)
     .delete(removeCustomer)
-    .post(addCustomer)
 
 module.exports = customerRouter;

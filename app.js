@@ -1,26 +1,26 @@
 const express = require("express");
 const app = express();
 const apiRouter = require("./routes/api");
-const sqlInjection = require('sql-injection')
+
+const { 
+    handles400s,
+    handles500s,
+    handles404s,
+    handles405s
+} = require('./error_handling/error')
+
 
 app.use(express.json());
 
-// app.configure(function() {
-//     app.use(sqlInjection)
-// });
+app.all('/*', (req, res, next) => {
+    res.status(404).send({msg: 'Path not found'})
+});
 
 app.use("/api", apiRouter);
 
+app.use(handles400s);
+app.use(handles500s);
+app.use(handles404s);
+app.use(handles405s)
+
 module.exports = app;
-
-
-
-// get all data from db
-
-// post new users to db
-
-// update users
-
-// Update product stock number
-
-// post orders

@@ -1,7 +1,6 @@
 const {con, host} = require('../db/connection');
 
 exports.fetchCustomerIfLoggedIn = (username, password, email) => {
-    console.log(username, password, email, 'in model params');
     let query = `SELECT * FROM ${host}.customers 
     WHERE username = '${username}' or email = '${email}' and password = '${password}';`
     return new Promise((resolve, reject) => {
@@ -23,7 +22,7 @@ exports.insertCustomer = (username, password, address, email, postcode) => {
 
     let query = `INSERT INTO ${host}.customers 
     (username, password, email, address, postcode, active) 
-    VALUES ('${username}', '${password}', '${email}', '${address}', '${postcode}', ${1});`
+    VALUES ('${username}', '${password}', '${email}', '${address}', '${postcode}', ${0});`
 
     return new Promise((resolve, reject) => {
         con.query(
@@ -46,12 +45,49 @@ exports.insertCustomer = (username, password, address, email, postcode) => {
     })
 }
 
+exports.updateCustomersStatus = (username, status) => {
+    let query = `UPDATE ${host}.customers SET active = ${status} WHERE username = '${username}';`
+    
+    return new Promise((resolve, reject) => {
+        con.query(
+            query, (err, result)  => {
+                if (err) {
+                    return reject({
+                        status: 400,
+                        msg: `Cannot update users status`
+                    })
+                }
+                return resolve({status: status, msg: 'Status updated successfuly'});
+            }
+        )
+    })
+},
+
+
+exports.updateCustomer = (address, postcode, username) => {
+    let query = `UPDATE ${host}.customers SET address = '${address}', postcode = '${postcode}' WHERE username = '${username}'`
+    return new Promise((resolve, reject) => {
+        con.query(
+            query, (err, result)  => {
+                if (!result.affectedRows) {
+                    return reject({
+                        status: 404,
+                        msg: `Unable to update ${username} delivery details`
+                    })
+                }
+                return resolve({msg: 'Successful update'});
+            }
+        )
+    })
+},
+
 exports.deleteCustomer = (username) => {
     let query = `DELETE from ${host}.customers WHERE username = '${username}'`
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
                 if (err) {
+                    console.log(err, 'here')
                     return reject({
                         status: 400,
                         msg: `Unable to delete user ${username}`
@@ -63,32 +99,4 @@ exports.deleteCustomer = (username) => {
     })
 }
 
-exports.updateCustomer = (address, postcode, username) => {
-    //updateCustomer(address, postcode)
-    console.log(address, postcode, username);
-    let query = `UPDATE ${host}.customers SET address = '${address}', postcode = '${postcode}' WHERE username = '${username}'`
-    return new Promise((resolve, reject) => {
-        con.query(
-            query, (err, result)  => {
-                if (err) {
-                    return reject({
-                        status: 400,
-                        msg: `Unable to update ${username} delivery details`
-                    })
-                }
-                return resolve({msg: 'Successful update'});
-            }
-        )
-    })
-}
-
-// const query = "INSERT INTO test.products (name, style, price, sizes, discount, img, gender, category, colour, stock_left, designer, slug, release_date) VALUES ?";
-
-// con.query(
-//     query,
-//     [formattedData.map(item => [item.name, item.style, item.price, item.sizes, null, item.img, item.gender, item.category, item.colour, item.stock_left, item.designer, item.slug, item.release_date])], function 
-//     (error, results) {
-//     console.log(error);
-//     }
-// );
 

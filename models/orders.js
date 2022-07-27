@@ -14,7 +14,7 @@ exports.fetchAllOrders = (customer_id) => {
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
-                if (err) {
+                if (err || !result.length) {
                     return reject({
                         status: 404,
                         msg: `Unable to find orders`

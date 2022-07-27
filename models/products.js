@@ -9,7 +9,7 @@ exports.fetchAllProducts = () => {
                 if (err) {
                     return reject({
                         status: 500,
-                        msg: `Unable to get products ${host}`
+                        msg: `Unable to get products`
                     })
                 }
                 return resolve({products: result});
@@ -23,10 +23,10 @@ exports.fetchProductsByCategory = (category) => {
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
-                if (err) {
+                if (err || !result.length) {
                     return reject({
-                        status: 500,
-                        msg: `Unable to get products`
+                        status: 404,
+                        msg: `Unable find product category of ${category}`
                     })
                 }
                 return resolve({products: result});
@@ -42,7 +42,7 @@ exports.fetchSingleProduct = (category, slug) => {
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
-                if (err) {
+                if (err || !result.length) {
                     return reject({
                         status: 404,
                         msg: `Unable to find product`
