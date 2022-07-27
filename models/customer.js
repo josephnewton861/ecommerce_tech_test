@@ -87,7 +87,6 @@ exports.deleteCustomer = (username) => {
         con.query(
             query, (err, result)  => {
                 if (err) {
-                    console.log(err, 'here')
                     return reject({
                         status: 400,
                         msg: `Unable to delete user ${username}`

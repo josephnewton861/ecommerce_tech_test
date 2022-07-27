@@ -5,7 +5,6 @@ const {
 
 exports.getAllOrders = (req, res, next) => {
     const {customer_id} = req.params;
-    console.log(customer_id, 'id here')
     fetchAllOrders(customer_id)
         .then(({orders}) => {
             return res.status(200).send(orders)

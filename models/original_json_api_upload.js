@@ -28,6 +28,5 @@ const formattedData = shoeData.shoes.map((item) => {
 //     query,
 //     [formattedData.map(item => [item.name, item.style, item.price, item.sizes, null, item.img, item.gender, item.category, item.colour, item.stock_left, item.designer, item.slug, item.release_date])], function 
 //     (error, results) {
-//     console.log(error);
 //     }
 // );

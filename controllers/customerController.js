@@ -21,7 +21,7 @@ const validatePassword = (password) => {
     return passwordSchema.validate(password, {list: true});
 }
 
-exports.isCustomerLoggedIn = (req, res, next) => {
+exports.isCustomerLoggedIn = (req, res) => {
     const {username, password, email} = req.body;
     let emailCheck = emailValidator.validate(email);
     let passwordCheck = validatePassword(password);
@@ -30,25 +30,27 @@ exports.isCustomerLoggedIn = (req, res, next) => {
         fetchCustomerIfLoggedIn(username, password, email)
         .then((customer) => {
             return res.status(200).send({customer})
+        }).catch((err) => {
+            return res.status(404).send(err);
         })
-        .catch(next)
     } else {
-        return res.status(400).send({email: email, passwordCheck: passwordCheck, msg: 'bad request'})
+        return res.status(400).send({email: email, passwordCheck: passwordCheck, msg: 'Bad request'})
     }
 },
 
-exports.updateUsersStatus = (req, res, next) => {
+exports.updateUsersStatus = (req, res) => {
     const {username, status} = req.body;
 
     updateCustomersStatus(username, status)
     .then((customer) => {
         return res.status(200).send(customer)
     }).catch((err) => {
-        return res.status(400).send(err.msg);
+        return res.status(400).send(err);
     })
+    
 },
 
-exports.addCustomer = (req, res, next) => {
+exports.addCustomer = (req, res) => {
     const {username, password, address, email, postcode} = req.body;
 
     let emailCheck = emailValidator.validate(email);
@@ -66,7 +68,7 @@ exports.addCustomer = (req, res, next) => {
     }
 },
 
-exports.removeCustomer = (req, res, next) => {
+exports.removeCustomer = (req, res) => {
     const {username} = req.params;
     deleteCustomer(username)
     .then((customer) => {
@@ -76,7 +78,7 @@ exports.removeCustomer = (req, res, next) => {
     })
 },
 
-exports.updateCustomerCredentials = (req, res, next) => {
+exports.updateCustomerCredentials = (req, res) => {
     const {address, postcode} = req.body;
     const {username} = req.params;
     updateCustomer(address, postcode, username)
@@ -86,13 +88,3 @@ exports.updateCustomerCredentials = (req, res, next) => {
         return res.status(404).send({msg: 'Unable to update users details'})
     })
 }
-
-// exports.signOut = (req, res, next) => {
-//     const {username} = req.body;
-//     updateCustomerSignOut(address, postcode, username)
-//     .then((customer) => {
-//         res.status(200).send(customer.msg)
-//     }).catch((err) => {
-//         return res.status(400).send({msg: 'Unable to update users details'})
-//     })
-// }

@@ -36,7 +36,7 @@ describe('GET /customer', () => {
             {username: 'test123', password: 'test', email: 'joes@.com'}
         )
         expect(res.status).toBe(400);
-        expect(res.body.msg).toEqual('bad request');
+        expect(res.body.msg).toEqual('Bad request');
     });
 })
 
