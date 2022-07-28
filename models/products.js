@@ -22,7 +22,7 @@ console.log(con, host, 'rer')
 
 exports.fetchAllProducts = () => {
     console.log(host, con)
-    let query = `SELECT * FROM ${host}.PRODUCTS ORDER BY release_date desc;`
+    let query = `SELECT * FROM PRODUCTS ORDER BY release_date desc;`
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
