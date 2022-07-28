@@ -26,6 +26,7 @@ exports.fetchAllProducts = () => {
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
+                console.log(result, err, host);
                 if (err) {
                     return reject({
                         status: 500,
