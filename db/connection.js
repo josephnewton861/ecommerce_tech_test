@@ -2,8 +2,6 @@ const mysql = require('mysql');
 const dotenv = require('dotenv');
 dotenv.config();
 
-let con;
-let host;
 
 console.log('in connection file')
 
