@@ -1,4 +1,6 @@
 
+console.log('IN CONTROLLER')
+
 const {
     fetchAllProducts,
     fetchSingleProduct,

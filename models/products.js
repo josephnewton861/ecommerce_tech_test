@@ -1,5 +1,24 @@
 const {con, host} = require('../db/connection');
 
+console.log(con, host, 'rer')
+
+let testQuery = `SELECT * FROM ${host}.PRODUCTS ORDER BY release_date desc;`
+let tetPromise = new Promise((resolve, reject) => {
+    con.query(
+        testQuery, (err, result)  => {
+            if (err) {
+                return reject({
+                    status: 500,
+                    msg: `Unable to get products`
+                })
+            }
+            console.log(result, 'here')
+            return resolve({products: result});
+        }
+    )
+})
+console.log(tetPromise, 'PROMISE')
+
 
 exports.fetchAllProducts = () => {
     console.log(host, con)
