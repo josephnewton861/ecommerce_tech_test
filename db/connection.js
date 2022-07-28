@@ -17,4 +17,13 @@ host = process.env.DB_HOST
 
 const testPassword = process.env.TEST_PASSWORD
 
+// const testController = (req, res) => {
+    
+// }
+
+
+
+
+
+
 module.exports = {con, host, testPassword};

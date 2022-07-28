@@ -1,6 +1,6 @@
 const {con, host} = require('../db/connection');
 
-console.log(con, host, 'rer')
+//console.log(con, host, 'rer')
 
 // let testQuery = `SELECT * FROM ${host}.PRODUCTS ORDER BY release_date desc;`
 // let tetPromise = new Promise((resolve, reject) => {
@@ -21,7 +21,7 @@ console.log(con, host, 'rer')
 
 
 exports.fetchAllProducts = () => {
-    console.log(host, con)
+    // console.log(host, con)
     let query = `SELECT * FROM PRODUCTS ORDER BY release_date desc;`
     return new Promise((resolve, reject) => {
         con.query(
