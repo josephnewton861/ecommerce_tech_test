@@ -5,11 +5,14 @@ dotenv.config();
 let con;
 let host;
 
+console.log('in connection file')
+
 if (process.env.CLEARDB_DATABASE_URL) {
     con = process.env.CLEARDB_DATABASE_URL;
     host = process.env.DB_HOST_PROD;
     console.log('hereeeee');
-} else {
+} 
+else {
     con = mysql.createConnection({
         host: process.env.DB_HOSTNAME,
         user: process.env.DB_USER,
