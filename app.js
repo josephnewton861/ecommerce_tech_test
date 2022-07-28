@@ -9,6 +9,9 @@ app.use("/api", apiRouter);
 
 const port = process.env.PORT || 3000;
 
+
+app.listen(port);
+
 app.get('/', (req, res) => {
     let testQuery = `SELECT * FROM ${host}.PRODUCTS ORDER BY release_date desc;`
     return new Promise((resolve, reject) => {
@@ -28,7 +31,4 @@ app.get('/', (req, res) => {
         res.status.send(products);
     })
   })
-
-app.listen(port);
-
 module.exports = app;
