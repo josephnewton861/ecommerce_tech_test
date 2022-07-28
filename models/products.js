@@ -2,7 +2,7 @@ const {con, host} = require('../db/connection');
 
 
 exports.fetchAllProducts = () => {
-    let query = `SELECT * FROM ${host}.PRODUCTS ORDER BY release_date desc;`
+    let query = `SELECT * FROM PRODUCTS ORDER BY release_date desc;`
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
