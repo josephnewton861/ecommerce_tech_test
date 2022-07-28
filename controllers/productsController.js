@@ -1,6 +1,3 @@
-
-console.log('IN CONTROLLER')
-
 const {
     fetchAllProducts,
     fetchSingleProduct,
@@ -8,12 +5,11 @@ const {
 } = require('../models/products');
 
 exports.getAllProducts = (req, res, next) => {
-    console.log('HERE IN CONTROLLER')
+
     fetchAllProducts()
-    .then(({products}) => {
-        return res.status(200).send(products)
-    }).catch((err) => {
-            console.log(res);
+        .then(({products}) => {
+            return res.status(200).send(products)
+        }).catch((err) => {
             return res.status(404).send(err);
     })
 },

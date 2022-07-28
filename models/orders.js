@@ -1,8 +1,5 @@
 const {con, host} = require('../db/connection');
 
-
-
-
 exports.fetchAllOrders = (customer_id) => {
     let query = `SELECT orders.id, orders.product_id, orders.status, orders.chosen_size, products.name, 
     products.style, products.gender, products.category, orders.delivered_date, orders.issue_date,products.img, orders.customer_id
