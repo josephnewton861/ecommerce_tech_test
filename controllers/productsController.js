@@ -5,11 +5,11 @@ const {
 } = require('../models/products');
 
 exports.getAllProducts = (req, res, next) => {
-
     fetchAllProducts()
-        .then(({products}) => {
-            return res.status(200).send(products)
-        }).catch((err) => {
+    .then(({products}) => {
+        return res.status(200).send(products)
+    }).catch((err) => {
+            console.log(res);
             return res.status(404).send(err);
     })
 },
