@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const apiRouter = require("./routes/api");
-const {con, host} = require('../db/connection');
+const {con, host} = require('./db/connection');
 
 app.use(express.json());
 
