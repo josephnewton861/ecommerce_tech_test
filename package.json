@@ -4,8 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "listen": "node listen.js",
-    "start": "node app.js"
+    "start": "node listen.js",
   },
   "repository": {
     "type": "git",
