@@ -7,8 +7,8 @@ let host;
 
 if (process.env.CLEARDB_DATABASE_URL) {
     con = process.env.CLEARDB_DATABASE_URL;
-    con.connect();
     host = process.env.DB_HOST_PROD;
+    console.log('hereeeee');
 } else {
     con = mysql.createConnection({
         host: process.env.DB_HOSTNAME,
