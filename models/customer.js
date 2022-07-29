@@ -1,7 +1,7 @@
-const {con, host} = require('../db/connection');
+const {con} = require('../db/connection');
 
 exports.fetchCustomerIfLoggedIn = (username, password, email) => {
-    let query = `SELECT * FROM ${host}.customers 
+    let query = `SELECT * FROM customers 
     WHERE username = '${username}' or email = '${email}' and password = '${password}';`
     return new Promise((resolve, reject) => {
         con.query(
@@ -20,7 +20,7 @@ exports.fetchCustomerIfLoggedIn = (username, password, email) => {
 
 exports.insertCustomer = (username, password, address, email, postcode) => {
 
-    let query = `INSERT INTO ${host}.customers 
+    let query = `INSERT INTO customers 
     (username, password, email, address, postcode, active) 
     VALUES ('${username}', '${password}', '${email}', '${address}', '${postcode}', ${0});`
 
@@ -46,7 +46,7 @@ exports.insertCustomer = (username, password, address, email, postcode) => {
 }
 
 exports.updateCustomersStatus = (username, status) => {
-    let query = `UPDATE ${host}.customers SET active = ${status} WHERE username = '${username}';`
+    let query = `UPDATE customers SET active = ${status} WHERE username = '${username}';`
     
     return new Promise((resolve, reject) => {
         con.query(
@@ -65,7 +65,7 @@ exports.updateCustomersStatus = (username, status) => {
 
 
 exports.updateCustomer = (address, postcode, username) => {
-    let query = `UPDATE ${host}.customers SET address = '${address}', postcode = '${postcode}' WHERE username = '${username}'`
+    let query = `UPDATE customers SET address = '${address}', postcode = '${postcode}' WHERE username = '${username}'`
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {
@@ -82,7 +82,7 @@ exports.updateCustomer = (address, postcode, username) => {
 },
 
 exports.deleteCustomer = (username) => {
-    let query = `DELETE from ${host}.customers WHERE username = '${username}'`
+    let query = `DELETE from customers WHERE username = '${username}'`
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {

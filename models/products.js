@@ -1,4 +1,4 @@
-const {con, host} = require('../db/connection');
+const {con} = require('../db/connection');
 
 exports.fetchAllProducts = () => {
     let query = `SELECT * FROM PRODUCTS ORDER BY release_date desc;`
@@ -35,7 +35,7 @@ exports.fetchProductsByCategory = (category) => {
 }
 
 exports.fetchSingleProduct = (category, slug) => {
-    let query = `SELECT * FROM ${host}.PRODUCTS 
+    let query = `SELECT * FROM PRODUCTS 
     WHERE category = '${category}' and slug = '${slug}' 
     ORDER BY release_date desc;`
     return new Promise((resolve, reject) => {
