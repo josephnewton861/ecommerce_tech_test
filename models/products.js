@@ -18,7 +18,7 @@ exports.fetchAllProducts = () => {
 }
 
 exports.fetchProductsByCategory = (category) => {
-    let query = `SELECT * FROM ${host}.PRODUCTS WHERE category = '${category}' ORDER BY release_date desc;`
+    let query = `SELECT * FROM PRODUCTS WHERE category = '${category}' ORDER BY release_date desc;`
     return new Promise((resolve, reject) => {
         con.query(
             query, (err, result)  => {

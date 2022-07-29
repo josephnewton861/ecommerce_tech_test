@@ -2,15 +2,15 @@ const mysql = require('mysql');
 const dotenv = require('dotenv');
 dotenv.config();
 
-// let con;
-// let host;
 
-// if(process.env.CLEARDB_DATABASE_URL) {
+// let host;
+const host = process.env.DB_HOST_PROD;
+if(process.env.CLEARDB_DATABASE_URL) {
     //console.log('here',
     //  process.env.DB_PROD_HOSTNAME, process.env.DB_PROD_USER, process.env.DB_PROD_PASSWORD, process.env.DB_PROD_HOST, 
     //  process.env.DB_PROD_PORT);
-    const host = process.env.DB_HOST_PROD;
-    const con = mysql.createConnection({
+
+   const con = mysql.createConnection({
         host: process.env.DB_PROD_HOSTNAME,
         user: process.env.DB_PROD_USER,
         password: process.env.DB_PROD_PASSWORD,
@@ -20,7 +20,9 @@ dotenv.config();
     });
    //const con = mysql.createConnection(process.env.CLEARDB_DATABASE_URL)
 //    con.connect();
-//} 
+    const testPassword = process.env.TEST_PASSWORD
+    module.exports = {con, host, testPassword};
+} 
 // else {
 //     con = mysql.createConnection({
 //         host: process.env.DB_HOSTNAME,
@@ -32,7 +34,3 @@ dotenv.config();
 //     });
 //     host = process.env.DB_HOST
 // }
-const testPassword = process.env.TEST_PASSWORD
-
-
-module.exports = {con, host, testPassword};
