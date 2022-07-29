@@ -9,7 +9,7 @@ if(process.env.CLEARDB_DATABASE_URL) {
     //console.log('here',
     //  process.env.DB_PROD_HOSTNAME, process.env.DB_PROD_USER, process.env.DB_PROD_PASSWORD, process.env.DB_PROD_HOST, 
     //  process.env.DB_PROD_PORT);
-
+    console.log('IN CLEAR DB')
    const con = mysql.createConnection({
         host: process.env.DB_PROD_HOSTNAME,
         user: process.env.DB_PROD_USER,
