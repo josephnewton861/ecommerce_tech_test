@@ -5,7 +5,7 @@ dotenv.config();
 let con;
 let host;
 
-if(process.env.CLEAR_DB) {
+if(process.env.CLEARDB_DATABASE_URL) {
     console.log('here');
     host = DB_HOST_PROD;
     con = mysql.createConnection(process.env.CLEAR_DB)
