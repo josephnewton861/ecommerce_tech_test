@@ -6,7 +6,9 @@ let con;
 let host;
 
 if(process.env.CLEARDB_DATABASE_URL) {
-    console.log('here');
+    console.log('here',
+     process.env.DB_PROD_HOSTNAME, process.env.DB_PROD_USER, process.env.DB_PROD_PASSWORD, process.env.DB_PROD_HOST, 
+     process.env.DB_PROD_PORT);
     host = process.env.DB_HOST_PROD;
     // con = mysql.createConnection({
     //     host: process.env.DB_PROD_HOSTNAME,
@@ -17,6 +19,7 @@ if(process.env.CLEARDB_DATABASE_URL) {
     //     multipleStatements: true
     // });
    con = mysql.createConnection(process.env.CLEAR_DB)
+   con.connect();
 } else {
     con = mysql.createConnection({
         host: process.env.DB_HOSTNAME,
