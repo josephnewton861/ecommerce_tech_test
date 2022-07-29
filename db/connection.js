@@ -8,15 +8,15 @@ let host;
 if(process.env.CLEARDB_DATABASE_URL) {
     console.log('here');
     host = process.env.DB_HOST_PROD;
-    con = mysql.createConnection({
-        host: process.env.DB_PROD_HOSTNAME,
-        user: process.env.DB_PROD_USER,
-        password: process.env.DB_PROD_PASSWORD,
-        database: process.env.DB_PROD_HOST,
-        port: process.env.DB_PROD_PORT,
-        multipleStatements: true
-    });
-   // con = mysql.createConnection(process.env.CLEAR_DB)
+    // con = mysql.createConnection({
+    //     host: process.env.DB_PROD_HOSTNAME,
+    //     user: process.env.DB_PROD_USER,
+    //     password: process.env.DB_PROD_PASSWORD,
+    //     database: process.env.DB_PROD_HOST,
+    //     port: process.env.DB_PROD_PORT,
+    //     multipleStatements: true
+    // });
+   con = mysql.createConnection(process.env.CLEAR_DB)
 } else {
     con = mysql.createConnection({
         host: process.env.DB_HOSTNAME,
