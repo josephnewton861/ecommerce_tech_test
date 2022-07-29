@@ -7,7 +7,7 @@ let host;
 
 if(process.env.CLEARDB_DATABASE_URL) {
     console.log('here');
-    host = DB_HOST_PROD;
+    host = process.env.DB_HOST_PROD;
     con = mysql.createConnection(process.env.CLEAR_DB)
 } else {
     con = mysql.createConnection({
