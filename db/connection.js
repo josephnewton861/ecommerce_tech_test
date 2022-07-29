@@ -18,8 +18,8 @@ if(process.env.CLEARDB_DATABASE_URL) {
     //     port: process.env.DB_PROD_PORT,
     //     multipleStatements: true
     // });
-   con = mysql.createConnection(process.env.CLEAR_DB)
-   con.connect();
+   con = mysql.createConnection(process.env.CLEARDB_DATABASE_URL)
+//    con.connect();
 } else {
     con = mysql.createConnection({
         host: process.env.DB_HOSTNAME,
