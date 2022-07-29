@@ -18,7 +18,7 @@ if(process.env.CLEARDB_DATABASE_URL) {
 //         port: process.env.DB_PROD_PORT,
 //         multipleStatements: true
 //     });
-   const con = mysql.createConnection(process.env.CLEARDB_DATABASE_URL)
+   const con = mysql.createPool(process.env.CLEARDB_DATABASE_URL)
 //    con.connect();
     const testPassword = process.env.TEST_PASSWORD
     module.exports = {con, host, testPassword};
