@@ -22,9 +22,10 @@ const validatePassword = (password) => {
 }
 
 exports.isCustomerLoggedIn = (req, res) => {
+    let passwordCheck = [];
     const {username, password, email} = req.body;
     let emailCheck = emailValidator.validate(email);
-    let passwordCheck = validatePassword(password);
+    passwordCheck = validatePassword(password);
 
     if (emailCheck && !passwordCheck.length) {
         fetchCustomerIfLoggedIn(username, password, email)
@@ -51,10 +52,12 @@ exports.updateUsersStatus = (req, res) => {
 },
 
 exports.addCustomer = (req, res) => {
+    let passwordCheck = [];
+
     const {username, password, address, email, postcode} = req.body;
 
     let emailCheck = emailValidator.validate(email);
-    let passwordCheck = validatePassword(password);
+    passwordCheck = validatePassword(password);
 
     if (emailCheck && !passwordCheck.length) {
         insertCustomer(username, password, address, email, address, postcode)
