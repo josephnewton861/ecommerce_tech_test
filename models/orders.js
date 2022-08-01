@@ -32,7 +32,7 @@ exports.addOrders = (product_ids, sizes, customer_id) => {
 
     product_ids.forEach((id, index) => {
         let query = `INSERT into orders (customer_id, product_id, status, chosen_size, issue_date) 
-        SELECT ${customer_id}, products.id, 0, ${sizes[index]}, '${formattedDate}' from test.products WHERE products.id = ${id}`;
+        SELECT ${customer_id}, products.id, 0, ${sizes[index]}, '${formattedDate}' from products WHERE products.id = ${id}`;
         promiseArr.push(
             new Promise((resolve, reject) => {
             con.query(

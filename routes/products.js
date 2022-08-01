@@ -17,12 +17,4 @@ productsRouter
     .route('/:category/:slug')
     .get(getIndividualProduct)
 
-
-
-
-// get products
-// get specific products
-// filter products by category type currently in stock
-// sort products by popularity, release date, price
-
 module.exports = productsRouter;
