@@ -28,16 +28,12 @@ exports.isCustomerLoggedIn = (req, res) => {
     let emailCheck = emailValidator.validate(email);
     passwordCheck = validatePassword(password);
 
-    if (username) {
-        fetchCustomerIfLoggedIn(username, password, email)
-        .then((customer) => {
-            return res.status(200).send({customer})
-        }).catch((err) => {
-            return res.status(404).send(err);
-        })
-    } else {
-        return res.status(400).send({email: email, passwordCheck: passwordCheck, msg: 'Bad request'})
-    }
+    fetchCustomerIfLoggedIn(username, password, email)
+    .then((customer) => {
+        return res.status(200).send({customer})
+    }).catch((err) => {
+        return res.status(404).send(err);
+    })
 },
 
 exports.updateUsersStatus = (req, res) => {
