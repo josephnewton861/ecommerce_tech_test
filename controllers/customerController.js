@@ -28,7 +28,7 @@ exports.isCustomerLoggedIn = (req, res) => {
     let emailCheck = emailValidator.validate(email);
     passwordCheck = validatePassword(password);
 
-    if (username || !passwordCheck.length) {
+    if (username) {
         fetchCustomerIfLoggedIn(username, password, email)
         .then((customer) => {
             return res.status(200).send({customer})
