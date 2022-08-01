@@ -13,8 +13,4 @@ ordersRouter
     .route('/:customer_id')
     .post(postOrder)
 
-// orderRouter
-//     .route('/product/:product_id')
-//     .get(getSingleOrder)
-
 module.exports = ordersRouter;

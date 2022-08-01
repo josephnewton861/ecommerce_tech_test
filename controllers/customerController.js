@@ -23,17 +23,22 @@ const validatePassword = (password) => {
 
 exports.isCustomerLoggedIn = (req, res) => {
     let passwordCheck = [];
-    const {username, password, email} = req.body;
+    const {password, email} = req.body;
+    const {username} = req.params
     
     let emailCheck = emailValidator.validate(email);
     passwordCheck = validatePassword(password);
 
-    fetchCustomerIfLoggedIn(username, password, email)
-    .then((customer) => {
-        return res.status(200).send({customer})
-    }).catch((err) => {
-        return res.status(404).send(err);
-    })
+    if (emailCheck || username) {
+        fetchCustomerIfLoggedIn(username, password, email)
+        .then((customer) => {
+            return res.status(200).send({customer})
+        }).catch((err) => {
+            return res.status(404).send(err);
+        })
+    } else {
+        return res.status(400).send({email: email, passwordCheck: passwordCheck, msg: 'Bad request'})
+    }
 },
 
 exports.updateUsersStatus = (req, res) => {
