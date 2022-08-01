@@ -24,6 +24,7 @@ const validatePassword = (password) => {
 exports.isCustomerLoggedIn = (req, res) => {
     let passwordCheck = [];
     const {username, password, email} = req.body;
+    
     let emailCheck = emailValidator.validate(email);
     passwordCheck = validatePassword(password);
 
