@@ -4,10 +4,12 @@ const {
     getAllProducts,
     getProductsByCategory,
     getIndividualProduct,
+    updateProductStock
 } = require ('../controllers/productsController')
 productsRouter
     .route('/')
     .get(getAllProducts)
+    .patch(updateProductStock)
 
 productsRouter
     .route('/:category')

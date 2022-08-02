@@ -37,3 +37,12 @@ describe('GET /products/:category/:slug', () => {
         expect(res.status).toBe(404);
     });
 });
+
+describe('PATCH /products', () => {
+    it('PATCH / Updates stock left value for specific products', async () => {
+        const res = await request.patch('/api/products').send({
+            product_ids: [1, 2]
+        })
+        expect(res.status).toBe(200)
+    });
+});

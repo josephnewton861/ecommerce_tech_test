@@ -53,3 +53,21 @@ exports.fetchSingleProduct = (category, slug) => {
     })
 }
 
+exports.patchStockLeft = (product_ids) => {
+    let query = `UPDATE PRODUCTS SET
+    stock_left = GREATEST(0, stock_left - ${1}) WHERE id in (${product_ids})`
+    return new Promise((resolve, reject) => {
+        con.query(
+            query, (err, result)  => {
+                if (err) {
+                    return reject({
+                        status: 404,
+                        msg: `Unable to update stock number`
+                    })
+                }
+                return resolve({msg: 'Updated stock count'});
+            }
+        )
+    })
+}
+
